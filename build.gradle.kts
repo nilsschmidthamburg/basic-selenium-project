@@ -32,7 +32,6 @@ dependencies {
     val seleniumVersion = "3.141.59"
     val webdriverManagerVersion = "4.2.2"
     val browsermobVersion = "2.1.5"
-    val skrapeitVersion = "0.6.0"
     val jUnitVersion = "5.7.0"
     val assertjVersion = "3.18.1"
     val striktVersion = "0.28.1"
@@ -57,11 +56,6 @@ dependencies {
         group = "net.lightbody.bmp",
         name = "browsermob-proxy",
         version = browsermobVersion
-    )
-    testImplementation(
-        group = "it.skrape",
-        name = "skrapeit-core",
-        version = skrapeitVersion
     )
 
     testImplementation(
@@ -109,12 +103,6 @@ dependencies {
         name = "jul-to-slf4j",
         version = julToSlf4jVersion
     )
-    // We need to stick with jsoup 1.11.3 as long as we are using skrape.it in version 0.6.*
-    testImplementation("org.jsoup:jsoup") {
-        version {
-            strictly("1.11.3")
-        }
-    }
 }
 
 configurations {
@@ -147,7 +135,7 @@ fun Test.parallelTestExecution() {
     if (!project.hasProperty("serial")) {
         systemProperties = mapOf(
             "$parallel.enabled" to true,
-            "$parallel.mode.default" to "concurrent",
+            // "$parallel.mode.default" to "concurrent",
             "$parallel.config.dynamic.factor" to 4
         )
     }
